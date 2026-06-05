@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "Diagnosis": {
+      "title": "Diagnosis",
+      "description": "Chili pepper plant disease diagnosis record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the diagnosis"
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "User UID who owns this entry"
+        },
+        "plantImage": {
+          "type": "string",
+          "description": "Base64 encoded or URL of the analyzed plant image"
+        },
+        "diseaseClass": {
+          "type": "string",
+          "description": "Name of the detected disease"
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Model confidence level (0 to 1)"
+        },
+        "mcUncertainty": {
+          "type": "number",
+          "description": "Monte Carlo Dropout uncertainty score / standard deviation"
+        },
+        "gradCamData": {
+          "type": "string",
+          "description": "JSON serialized string of Grad-CAM high-intensity heat points"
+        },
+        "recommendations": {
+          "type": "string",
+          "description": "JSON serialized string or narrative of the treatment recommendations"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Farmer's personal farm notes for this diagnosis"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modification timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "diseaseClass",
+        "confidence",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "diagnoses/{diagnosisId}": {
+      "schema": "Diagnosis",
+      "description": "Collection of diagnoses created by farmers"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Pendeteksi Penyakit Cabai",
+  "description": "Sistem pendeteksi penyakit tanaman cabai dan rekomendasi penanggulangan berbasis machine learning untuk membantu petani melakukan diagnosis secara cepat.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

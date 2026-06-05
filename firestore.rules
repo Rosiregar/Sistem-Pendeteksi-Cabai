@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny Master Gate
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable hardeners
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidDiagnosis(data) {
+      return data.id is string
+          && data.id.size() <= 128
+          && data.ownerId == request.auth.uid
+          && data.diseaseClass is string
+          && data.diseaseClass.size() <= 128
+          && data.confidence is number;
+    }
+
+    // Diagnoses Security Fortress
+    match /diagnoses/{diagnosisId} {
+      allow get: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+      
+      // Query Enforcer: Lists are scoped specifically to the requesting user data
+      allow list: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+      
+      allow create: if isSignedIn()
+                    && isValidId(diagnosisId)
+                    && isValidDiagnosis(request.resource.data)
+                    && request.resource.data.createdAt == request.time;
+                    
+      allow update: if isSignedIn()
+                    && isValidId(diagnosisId)
+                    && resource.data.ownerId == request.auth.uid
+                    && isValidDiagnosis(request.resource.data)
+                    && request.resource.data.ownerId == resource.data.ownerId
+                    && request.resource.data.createdAt == resource.data.createdAt
+                    && request.resource.data.updatedAt == request.time;
+                    
+      allow delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}

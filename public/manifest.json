@@ -1,0 +1,30 @@
+{
+  "name": "Sistem Deteksi Penyakit Tanaman Cabai Merah",
+  "short_name": "Patologi Cabai",
+  "description": "Sistem cerdas agraris untuk deteksi penyakit tanaman cabai merah secara cepat, akurat, dan dapat bekerja secara offline.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#2D3A28",
+  "theme_color": "#588157",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}
